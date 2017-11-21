@@ -203,7 +203,7 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
     paths.transition()
         .duration(200);
 
-    paths.on("mouseover", function(d) {
+    paths.on("mouseover touchstart", function(d) {
         d3.select("text.playerLabel").remove();
         d3.select("text.playerSubLabel").remove();
         d3.select("rect.playerLabelBox").remove();
@@ -229,7 +229,7 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
     });
 
 
-    paths.on("mouseout", function() {
+    paths.on("mouseout touchend", function() {
         d3.select(this)
             .style("stroke", function(d) {
                 var max = d.values[d.values.length - 1].catches;
