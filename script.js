@@ -45,7 +45,7 @@ var rowConverter = function(d) {
     };
 }
 
-d3.csv("http://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", rowConverter, function(data) {
+d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", rowConverter, function(data) {
 
     //dataset
     var dataset = data;
