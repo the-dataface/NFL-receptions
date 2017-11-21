@@ -41,8 +41,7 @@ path.line {
 } div.container {
   display: inline-block;
   position: relative;
-  padding-bottom: 100%;
-  vertical-align: top;
+  width:100%;
   overflow: hidden;
 } .svg.content {
   display: inline-block;

@@ -176,7 +176,7 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
         })
         .curve(d3.curveStepBefore);
 
-    var svg = d3.select("body")
+    var svg = d3.select("div.container")
         .append("svg")
         .attr("width", w + margin.right)
         .attr("height", h + margin.top + margin.bottom)
