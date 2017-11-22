@@ -424,7 +424,7 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
             .attr("y", yScale(catches) - 5)
             .attr("pointer-events", "none")
             .filter(function() {
-                return small_screen
+                return small_screen;
             })
             .attr("x", xScale(game))
             .attr("text-anchor", "end");
@@ -436,7 +436,7 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
             .attr("y", yScale(catches) + 15)
             .attr("pointer-events", "none")
             .filter(function() {
-                return small_screen
+                return small_screen;
             })
             .attr("x", xScale(game))
             .attr("text-anchor", "end");
@@ -474,8 +474,8 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
 
         if (small_screen) {
           d3.select("text").attr("class", "playerLabel").attr("y", yScale(catches) - 5 - (height / 2));
-          d3.select("text").attr("class", "playerLabel").attr("y", yScale(catches) + 15 - (height / 2));
-          d3.select("rect.playerLabelBox").attr("y", yScale(catches) - heightPlayerLabel - height / 2);
+          d3.select("text").attr("class", "playerSubLabel").attr("y", yScale(catches) + 15 - (height / 2));
+          d3.select("rect.playerLabelBox").attr("y", yScale(catches) - heightPlayerLabel - (height / 2));
         }
 
     };
