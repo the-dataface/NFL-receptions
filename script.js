@@ -340,7 +340,7 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
         g.call(yAxis);
         g.select(".domain").remove();
         g.selectAll(".tick line").attr("stroke", "#777").attr("stroke-width", 0.1);
-        g.selectAll(".tick text").attr("x", 20).attr("dy", -4).attr("font-family", "Mada").attr("font-size", "13px");
+        g.selectAll(".tick text").attr("dy", -4).attr("font-family", "Mada").attr("font-size", "13px").attr("text-anchor", "start");
     }
 
     //x axis customization
