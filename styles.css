@@ -62,7 +62,7 @@ div.chart-header {
 
 @media screen and (max-width: 600px) {
 	div.chart-header {
-		width: 98%;
+		width: 95%;
 	}
 }
 
@@ -81,7 +81,14 @@ div.step-chart-container {
 	display: inline-block;
 	position: relative;
 	width:100%;
+	margin: auto;
 	overflow: hidden;
+}
+
+@media screen and (max-width: 600px) {
+	div.step-chart-container {
+		width: 95%;
+	}
 }
 
 .svg.content {
