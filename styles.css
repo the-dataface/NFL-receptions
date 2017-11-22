@@ -1,112 +1,150 @@
 path.line {
-  fill:none;
-  stroke-width:3;
-} path.lineThin {
-  fill:none;
-  stroke:black;
-  stroke-width:2;
-  pointer-events:none;
-} path.annotationPath {
-  fill:none;
+	fill:none;
+	stroke-width:3;
+} 
+
+path.lineThin {
+	fill:none;
+	stroke:black;
+	stroke-width:2;
+	pointer-events:none;
+} 
+
+path.annotationPath {
+	fill:none;
 	stroke:	#808080;
-  stroke-width:1;
-} text.annotationText {
-  font-family: 'Mada';
-  font-weight: 300;
-  text-anchor: middle;
-  font-size: 12px;
-  fill:	#808080;
-} p.playerLabel {
-  position: absolute;
-  x: 100;
-  y: 200;
-  font-family: 'Mada', sans-serif;
-  background-color: rgba(255,255,255,.8);
-  font-weight:700;
-  z-index:2;
-} p.playerSubLabel {
-  position: absolute;
-  x: 0;
-  y: 0;
-  font-family: 'Mada', sans-serif;
-  background-color: rgba(255,255,255,.8);
-  font-weight:300;
-  z-index:1;
-} text.playerLabel {
-  font-family: 'Mada', sans-serif;
-  font-weight:700;
-} text.playerSubLabel {
-  font-family: 'Mada', sans-serif;
-  font-weight:300;
-} div.chart-header {
-  font-family: 'Mada', sans-serif;
-  padding-left:30px;
-} p.main-header {
-  font-size: 28px;
-  margin: 5 auto;
-} p.sub-header {
-  font-size: 23px;
-  font-weight:300;
-  margin: auto;
-} div.container {
-  display: inline-block;
-  position: relative;
-  width:100%;
-  overflow: hidden;
-} .svg.content {
-  display: inline-block;
-  position: absolute;
-  top: 0px;
-  left: 0px;
-} .search-bar-container {
-  opacity: 1;
-  display: inline-block;
-  position: relative;
-  pointer-events: all;
-  width: 140px;
-  font-family: 'Mada';
-  margin: 0 auto;
-  margin-top:10px;
-} .search-bar {
-  box-shadow: inset 2px 3px 3px rgba(0,0,0,0.07);
-  border-radius: 3px;
-  box-sizing: border-box;
-  border: 1px #e2e2e2 solid;
-  width: 100%;
-  padding: 0 30px 0 10px;
-  font-size: 12px;
-  height: 28px;
-  width: 200px;
-} .search-bar-results {
-  position: absolute;
-  width: auto;
-  bottom: -7px;
-  background: white;
-  z-index: 1000000000;
-  padding: 4px 7px;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  transform: translate(0,100%);
-  min-width: 95px;
-  display:none;
-  z-index:1000000;
-} .search-bar-results-shown {
-  display:block;
-} .search-bar-results-result {
-  font-size: 12px;
-  color: rgba(0, 0, 0, 0.74);
-  font-weight: 500;
-  margin: 0 auto;
-  line-height: 16px;
-  cursor: pointer;
-} .legend-container {
-  position: absolute;
-  left: 220px;
-  height:100px;
-  width:200px;
-  top:0px;
-} text.label {
-  font-weight: 300;
+	stroke-width:1;
+} 
+
+text.annotationText {
+	font-family: 'Mada';
+	font-weight: 300;
+	text-anchor: middle;
+	font-size: 12px;
+	fill:	#808080;
+} 
+
+p.playerLabel {
+	position: absolute;
+	x: 100;
+	y: 200;
+	font-family: 'Mada', sans-serif;
+	background-color: rgba(255,255,255,.8);
+	font-weight:700;
+	z-index:2;
+} 
+
+p.playerSubLabel {
+	position: absolute;
+	x: 0;
+	y: 0;
+	font-family: 'Mada', sans-serif;
+	background-color: rgba(255,255,255,.8);
+	font-weight:300;
+	z-index:1;
+} 
+
+text.playerLabel {
+	font-family: 'Mada', sans-serif;
+	font-weight:700;
+} 
+
+text.playerSubLabel {
+	font-family: 'Mada', sans-serif;
+	font-weight:300;
+} 
+
+div.chart-header {
+	font-family: 'Mada', sans-serif;
+	padding-left:30px;
+} 
+
+p.main-header {
+	font-size: 28px;
+	margin: 5 auto;
+} 
+
+p.sub-header {
+	font-size: 23px;
+	font-weight:300;
+	margin: auto;
+} 
+
+div.container {
+	display: inline-block;
+	position: relative;
+	width:100%;
+	overflow: hidden;
+} 
+
+.svg.content {
+	display: inline-block;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+} 
+
+.search-bar-container {
+	opacity: 1;
+	display: inline-block;
+	position: relative;
+	pointer-events: all;
+	width: 140px;
+	font-family: 'Mada';
+	margin: 0 auto;
+	margin-top:10px;
+} 
+
+.search-bar {
+	box-shadow: inset 2px 3px 3px rgba(0,0,0,0.07);
+	border-radius: 3px;
+	box-sizing: border-box;
+	border: 1px #e2e2e2 solid;
+	width: 100%;
+	padding: 0 30px 0 10px;
+	font-size: 12px;
+	height: 28px;
+	width: 200px;
+} 
+
+.search-bar-results {
+	position: absolute;
+	width: auto;
+	bottom: -7px;
+	background: white;
+	z-index: 1000000000;
+	padding: 4px 7px;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	transform: translate(0,100%);
+	min-width: 95px;
+	display:none;
+	z-index:1000000;
+} 
+
+.search-bar-results-shown {
+	display:block;
+} 
+
+.search-bar-results-result {
+	font-size: 12px;
+	color: rgba(0, 0, 0, 0.74);
+	font-weight: 500;
+	margin: 0 auto;
+	line-height: 16px;
+	cursor: pointer;
+} 
+
+.legend-container {
+	position: absolute;
+	left: 220px;
+	height:100px;
+	width:200px;
+	top:0px;
+} 
+
+text.label {
+	font-weight: 300;
 }
