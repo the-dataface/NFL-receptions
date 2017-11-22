@@ -42,10 +42,10 @@ path.line {
   font-family: 'Mada', sans-serif;
   padding-left:30px;
 } p.main-header {
-  font-size: 35px;
-  margin: auto;
+  font-size: 28px;
+  margin: 5 auto;
 } p.sub-header {
-  font-size: 25px;
+  font-size: 23px;
   font-weight:300;
   margin: auto;
 } div.container {
