@@ -148,7 +148,7 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
         antonio_brown:[[99, 823],[106, 783],[111, 702]]
       };
     } else if (small_screen) {
-      annotation_names = ["Jarvis Landry", "Jerry Rice", "Odell Beckham", "Marvin Harrison",
+      annotation_names = ["Jarvis Landry", "Jerry Rice", "Marvin Harrison",
                           "Larry Fitzgerald", "Antonio Brown"];
       annotation_coordinates = {
         jarvis_landry:[[45, 510],[58, 450],[57, 349]],
