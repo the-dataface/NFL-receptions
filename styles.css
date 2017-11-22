@@ -57,8 +57,7 @@ text.playerSubLabel {
 .chart-header {
 	font-family: 'Mada', sans-serif;
 	width: 90%;
-    margin: 0.75em auto;
-    justify-content: center;
+	margin: 0.75em auto;
 } 
 
 p.main-header {
@@ -142,8 +141,8 @@ div.container {
 .legend-container {
 	position: absolute;
 	left: 220px;
-	height:100px;
-	width:200px;
+	height:50px;
+	width:125px;
 	top:0px;
 } 
 

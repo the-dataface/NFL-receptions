@@ -551,7 +551,10 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
     }
 
     //building legend
-    var svg_legend = d3.select("div.legend-container").append("svg");
+    var svg_legend = d3.select("div.legend-container")
+						.append("svg")
+						.style("width", "100%")
+						.style("height", "100%");
 
     var legendScale = d3.scaleOrdinal()
                     .domain(["Active Player", "Retired Player"])
