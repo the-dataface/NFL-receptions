@@ -8,11 +8,11 @@ var medium_screen = false;
 var small_screen = false;
 
 if (windowW > 1000) {
-    margin_right = windowW * .2;
-    h = windowH * 1.5;
+    var margin_right = windowW * 0.2;
+    var h = windowH * 1.5;
     large_screen = true;
 } else if (windowW > 650) {
-    margin_right = windowW * .3;
+    margin_right = windowW * 0.3;
     h = windowH * 1.5;
     medium_screen = true;
 } else {
@@ -26,7 +26,7 @@ var margin = {
     top: 120,
     right: margin_right,
     bottom: 100,
-    left: 50
+    left: 30
 };
 
 w = w - margin.left - margin.right;
@@ -64,7 +64,7 @@ var rowConverter = function(d) {
         season: parseInt(d['Season']),
         active: d['Active']
     };
-}
+};
 
 d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", rowConverter, function(data) {
 
@@ -95,18 +95,20 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
     var name_key_pairs = [];
     var names = [];
 
-    for (index in nested) {
-        player_info = [];
-        values = nested[index].values;
-        length = values.length - 1;
+    for (var index in nested) {
+        var player_info = [];
+        var values = nested[index].values;
+        var length = values.length - 1;
 
-        key = nested[index].key;
+        var key = nested[index].key;
         index = index;
-        name = values[0].name;
-        name_lowercase = values[0].name.toLowerCase()
-        games = values[length].game;
-        catches = values[length].catches;
-        active = values[0].active;
+        var name = values[0].name;
+        var name_lowercase = values[0].name.toLowerCase()
+        var games = values[length].game;
+        var catches = values[length].catches;
+        var active = values[0].active;
+		var seasons_played;
+		
         if (active == "Active") {
           seasons_played = "(" + values[0].season + " - Present)";
         } else {
@@ -125,12 +127,15 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
         names.push(name);
     }
 
+	var annotation_names;
+	var annotation_coordinates;
+	
     if (large_screen) {
       annotation_names = ["Jarvis Landry", "Jerry Rice", "Odell Beckham", "Marvin Harrison",
                           "Larry Fitzgerald", "Antonio Brown"];
       annotation_coordinates = {
         jarvis_landry:[[45, 470],[52, 430],[57, 349]],
-        jerry_rice:[[291, 1670],[298, 1630],[303, 1549]],
+        jerry_rice:[[291, 1580],[301, 1560],[303, 1549]],
         odell_beckham:[[35, 434],[42, 394],[47, 313]],
         marvin_harrison:[[178, 1223],[185, 1183],[190, 1102]],
         larry_fitzgerald:[[199, 1306],[206, 1266],[211, 1185]],
@@ -152,7 +157,7 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
                           "Larry Fitzgerald", "Antonio Brown"];
       annotation_coordinates = {
         jarvis_landry:[[45, 510],[58, 450],[57, 349]],
-        jerry_rice:[[291, 1670],[298, 1630],[303, 1549]],
+        jerry_rice:[[291, 1580],[301, 1560],[303, 1549]],
         //odell_beckham:[[35, 434],[42, 394],[47, 313]],
         marvin_harrison:[[178, 1223],[185, 1183],[190, 1102]],
         larry_fitzgerald:[[199, 1306],[206, 1266],[211, 1185]],
@@ -281,7 +286,6 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
         var seasons_played;
         //fix this
         d3.select(this)
-            .style("stroke-width", "4")
             .each(function(d) {
                 key = d.key;
                 name = key_info_pairs[key].name;
@@ -306,7 +310,6 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
     //mouseout line effects
     paths.on("mouseout touchend", function() {
         d3.select(this)
-          .style("stroke-width", "3")
           .each(function(d) {
               key = d.key;
               name = key_info_pairs[key].name;
@@ -336,8 +339,8 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
         //var s = g.selection ? g.selection() : g;
         g.call(yAxis);
         g.select(".domain").remove();
-        g.selectAll(".tick line").attr("stroke", "#777").attr("stroke-width", .1);
-        g.selectAll(".tick text").attr("x", 20).attr("dy", -4).attr("font-family", "Mada").attr("font-size", "13px");
+        g.selectAll(".tick line").attr("stroke", "#777").attr("stroke-width", 0.1);
+        g.selectAll(".tick text").attr("dy", -4).attr("font-family", "Mada").attr("font-size", "13px").attr("text-anchor", "start");
     }
 
     //x axis customization
@@ -352,16 +355,16 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
     d3.select(".search-bar")
         .on("keyup", function() {
 
-            results_container = d3.select(".search-bar-results");
+            var results_container = d3.select(".search-bar-results");
 
             results_container.classed("search-bar-results-shown", false);
 
-            d3.selectAll(".search-bar-results-result").remove()
+            d3.selectAll(".search-bar-results-result").remove();
 
-            entry = d3.select(".search-bar").node().value.toLowerCase();
+            var entry = d3.select(".search-bar").node().value.toLowerCase();
             matches = [];
 
-            for (i in names) {
+            for (var i in names) {
                 name_lowerCase = names[i].toLowerCase();
                 name = names[i];
                 if (name_lowerCase.startsWith(entry)) {
@@ -394,14 +397,14 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
 
                             if (in_annotation_list(name)) {
                               remove_annotation(name);
-                            };
+                            }
 
                             create_line_and_label(player_data, name, game, catches, seasons_played);
                         }
                         results_container.classed("search-bar-results-shown", false);
                     });
             }
-        })
+        });
 
     //function to create line and label
     var create_line_and_label = function(data_set, name, game, catches, seasons_played) {
@@ -458,10 +461,10 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
             .attr("x", xScale(game) + 12)
             .attr("y", yScale(catches) - heightPlayerLabel)
             .attr("fill", "white")
-            .attr("opacity", .8)
+            .attr("opacity", 0.8)
             .attr("pointer-events", "none")
             .filter(function() {
-                return small_screen
+                return small_screen;
             })
             .attr("x", xScale(game) - width - 5)
             .attr("y", yScale(catches) - heightPlayerLabel);
@@ -470,12 +473,6 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
             d3.select("text.playerLabel").attr("x", xScale(0)).attr("text-anchor", "start");
             d3.select("text.playerSubLabel").attr("x", xScale(0)).attr("text-anchor", "start");
             d3.select("rect.playerLabelBox").attr("x", xScale(0));
-        }
-
-        if (small_screen) {
-          d3.select("text").attr("class", "playerLabel").attr("y", yScale(catches) - 5 - (height / 2));
-          d3.select("text").attr("class", "playerSubLabel").attr("y", yScale(catches) + 15 - (height / 2));
-          d3.select("rect.playerLabelBox").attr("y", yScale(catches) - heightPlayerLabel - (height / 2));
         }
 
     };
@@ -552,7 +549,7 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
       d3.select("text." + name_label).remove();
     };
 
-    for (i in annotation_names) {
+    for (var i in annotation_names) {
       create_annotation(annotation_names[i]);
     }
 
