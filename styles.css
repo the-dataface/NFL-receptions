@@ -103,8 +103,10 @@ path.line {
   cursor: pointer;
 } .legend-container {
   position: absolute;
-  left: 220;
+  left: 220px;
   height:100px;
   width:200px;
-  top:0;
+  top:0px;
+  font-family:'Mada';
+  font-weight:300;
 }

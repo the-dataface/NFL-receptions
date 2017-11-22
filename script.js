@@ -561,9 +561,12 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
 
     svg_legend.append("g")
        .attr("class", "legendOrdinal")
-       .attr("transform", "translate(15,10)")
-       .attr("font-family", 'Mada')
-       .attr("font-weight", "300");
+       .attr("transform", "translate(15,10)");
+
+    svg_legend.select("g.legendOrdinal")
+             .selectAll("text.label")
+             .attr("font-family", 'Mada')
+             .attr("font-weight", 300);
 
     var legendOrdinal = d3.legendColor()
       .shape("path", d3.symbol().type(d3.symbolSquare).size(300)())
