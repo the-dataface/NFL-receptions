@@ -32,10 +32,6 @@ var margin = {
 w = w - margin.left - margin.right;
 h = h - margin.top - margin.bottom;
 
-d3.select("div.chart-header")
-    .attr("width", w + "px");
-
-
 /*
 
 //building legend
@@ -72,6 +68,8 @@ var rowConverter = function(d) {
 
 d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", rowConverter, function(data) {
 
+   d3.select("div.chart-header")
+     .attr("width", w + "px");
     //dataset
     var dataset = data;
 
