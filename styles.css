@@ -52,10 +52,9 @@ text.playerLabel {
 text.playerSubLabel {
 	font-family: 'Mada', sans-serif;
 	font-weight:300;
-} 
+}
 
-div.chart-header {
-	font-family: 'Mada', sans-serif;
+div.nfl-receptions-chart {
 	width: 90%;
 	margin: 0.75em auto;
 }
@@ -64,6 +63,12 @@ div.chart-header {
 	div.chart-header {
 		width: 95%;
 	}
+}
+
+div.chart-header {
+	font-family: 'Mada', sans-serif;
+	width: 100%;
+	margin: 0.75em auto;
 }
 
 p.main-header {
@@ -83,12 +88,6 @@ div.step-chart-container {
 	width:100%;
 	margin: auto;
 	overflow: hidden;
-}
-
-@media screen and (max-width: 600px) {
-	div.step-chart-container {
-		width: 95%;
-	}
 }
 
 .svg.content {
