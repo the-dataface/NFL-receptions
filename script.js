@@ -23,7 +23,7 @@ if (windowW > 1000) {
 var w = windowW;
 
 var margin = {
-    top: 105,
+    top: 120,
     right: margin_right,
     bottom: 100,
     left: 50
