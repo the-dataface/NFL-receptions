@@ -94,12 +94,17 @@ path.line {
   z-index:1000000;
 } .search-bar-results-shown {
   display:block;
-}
-.search-bar-results-result {
+} .search-bar-results-result {
   font-size: 12px;
   color: rgba(0, 0, 0, 0.74);
   font-weight: 500;
   margin: 0 auto;
   line-height: 16px;
   cursor: pointer;
+} .legend-container {
+  position: absolute;
+  left: 220;
+  height:100px;
+  width:200px;
+  top:0;
 }

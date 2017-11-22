@@ -35,6 +35,26 @@ h = h - margin.top - margin.bottom;
 d3.select("div.chart-header")
     .attr("width", w + "px");
 
+
+/*
+
+//building legend
+var legendScale = d3.scaleOrdinal()
+                .domain(["Active Player", "Retired Player"])
+                .range([ "rgb(153, 107, 195)", "rgb(56, 106, 197)"]);
+svg.append("g")
+   .attr("class", "legendOrdinal")
+
+var legendOrdinal = d3.legendColor()
+  .shape("path", d3.symbol().type(d3.symbolTriangle).size(150)())
+  .shapePadding(10)
+  .scale(legendScale);
+
+svg.select(".legendOrdinal")
+   .call(legendOrdinal);
+
+*/
+
 //defining variables
 var dataset, xScale, yScale, xAxis, yAxis, line;
 
@@ -106,8 +126,6 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
 
         names.push(name);
     }
-
-    console.log(nested);
 
     if (large_screen) {
       annotation_names = ["Jarvis Landry", "Jerry Rice", "Odell Beckham", "Marvin Harrison",
@@ -208,23 +226,20 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
         .tickFormat(function(d) {
             if (d == 0) {
                 return " ";
+            } else if (d == 1400) {
+                return d + " catches";
             } else {
-                return d;
+              return d;
             }
         });
 
+    //create svg
     var svg = d3.select("div.container")
         .append("svg")
         .attr("width", w + margin.right)
         .attr("height", h + margin.top + margin.bottom)
         .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-        .on("click", function() {
-          d3.select("text.playerLabel").remove();
-          d3.select("text.playerSubLabel").remove();
-          d3.select("rect.playerLabelBox").remove();
-          d3.select("path.lineThin").remove();
-        });
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     //set up line generators
     var line = d3.line()
@@ -236,6 +251,7 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
         })
         .curve(d3.curveStepBefore);
 
+    //create lines
     var paths = svg.selectAll("path")
         .data(nested)
         .enter()
@@ -249,43 +265,11 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
             if (final_year == 2017) {
               return "#6699CC";
             } else {
-              return "DCDCDC";
+              return "#DCDCDC";
             }
         });
 
-    /*
-    const type = d3.annotationCalloutElbow;
-
-    const annotations = [{
-      note: {
-        title: "Jarvis Landry"
-      },
-      connector: {
-        end: "dot" // 'dot' also available
-      },
-    //can use x, y directly instead of data
-      data: { game: 70, catches: 275 },
-      dy: -25,
-      dx: -25
-    }].map(function(d){ d.color = "#000000"; return d})
-
-    const makeAnnotations = d3.annotation()
-      .type(type)
-      //accessors & accessorsInverse not needed
-      //if using x, y in annotations JSON
-      .accessors({
-        x: d => xScale(d.game),
-        y: d => yScale(d.catches)
-      })
-      .annotations(annotations);
-
-    d3.select("svg")
-      .append("g")
-      .attr("class", "annotation-group")
-      .call(makeAnnotations)
-      .style("font-family", 'Mada');
-    */
-
+    //mousover line effects
     paths.on("mouseover touchstart", function(d) {
         d3.select("text.playerLabel").remove();
         d3.select("text.playerSubLabel").remove();
@@ -321,7 +305,7 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
             });
     });
 
-
+    //mouseout line effects
     paths.on("mouseout touchend", function() {
         d3.select(this)
           .style("stroke-width", "3")
@@ -349,14 +333,16 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
     svg.append("g")
         .call(customYAxis);
 
+    //y axis customization
     function customYAxis(g) {
         //var s = g.selection ? g.selection() : g;
         g.call(yAxis);
         g.select(".domain").remove();
         g.selectAll(".tick line").attr("stroke", "#777").attr("stroke-width", .1);
-        g.selectAll(".tick text").attr("x", 4).attr("dy", -4).attr("font-family", "Mada").attr("font-size", "13px");
+        g.selectAll(".tick text").attr("x", 20).attr("dy", -4).attr("font-family", "Mada").attr("font-size", "13px");
     }
 
+    //x axis customization
     function customXAxis(g) {
         //var s = g.selection ? g.selection() : g;
         g.call(xAxis);
@@ -364,6 +350,7 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
         g.selectAll(".tick text").attr("font-family", "Mada").attr("font-size", "13px");
     }
 
+    //search bar functionality
     d3.select(".search-bar")
         .on("keyup", function() {
 
@@ -418,7 +405,7 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
             }
         })
 
-
+    //function to create line and label
     var create_line_and_label = function(data_set, name, game, catches, seasons_played) {
         d3.select("text.playerLabel").remove();
         d3.select("text.playerSubLabel").remove();
@@ -489,6 +476,7 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
 
     };
 
+    //annotation line generation
     var annotationLine = d3.line()
         .x(function(d) {
             return xScale(d[0]);
@@ -498,6 +486,7 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
         })
         .curve(d3.curveCardinal);
 
+    //function to create annotation
     var create_annotation = function(name) {
       i = 0;
       found_name = false;
@@ -528,6 +517,7 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
       }
     };
 
+    //function to check if player should be annotated
     var in_annotation_list = function(name) {
       i = 0;
       while (i < annotation_names.length) {
@@ -540,6 +530,7 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
       return false;
     };
 
+    //function to check if annotation exists or is hidden
     var existing_annotation = function(name) {
       name_label = name.split(' ').join('_').toLowerCase();
       path = d3.select("path." + name_label);
@@ -550,6 +541,7 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
       }
     };
 
+    //function to remove annotation
     var remove_annotation = function(name) {
       name_label = name.split(' ').join('_').toLowerCase();
       d3.select("path." + name_label).remove();
@@ -560,5 +552,25 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
       create_annotation(annotation_names[i]);
     }
 
+    //building legend
+    var svg_legend = d3.select("div.legend-container").append("svg");
+
+    var legendScale = d3.scaleOrdinal()
+                    .domain(["Active Player", "Retired Player"])
+                    .range([ "#6699CC", "#DCDCDC"]);
+
+    svg_legend.append("g")
+       .attr("class", "legendOrdinal")
+       .attr("transform", "translate(15,10)")
+       .attr("font-family", 'Mada')
+       .attr("font-weight", "300");
+
+    var legendOrdinal = d3.legendColor()
+      .shape("path", d3.symbol().type(d3.symbolSquare).size(300)())
+      .shapePadding(10)
+      .scale(legendScale);
+
+    svg_legend.select(".legendOrdinal")
+       .call(legendOrdinal);
 
 });
