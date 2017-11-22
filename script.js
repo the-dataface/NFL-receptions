@@ -281,7 +281,6 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
         var seasons_played;
         //fix this
         d3.select(this)
-            .style("stroke-width", "4")
             .each(function(d) {
                 key = d.key;
                 name = key_info_pairs[key].name;
@@ -306,7 +305,6 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
     //mouseout line effects
     paths.on("mouseout touchend", function() {
         d3.select(this)
-          .style("stroke-width", "3")
           .each(function(d) {
               key = d.key;
               name = key_info_pairs[key].name;
