@@ -3,14 +3,18 @@ var windowW = window.innerWidth;
 var windowH = window.innerHeight;
 
 var margin_right;
+var large_screen = false;
+var medium_screen = false;
 var small_screen = false;
 
 if (windowW > 1000) {
     margin_right = windowW * .2;
     h = windowH * 1.5;
+    large_screen = true;
 } else if (windowW > 650) {
     margin_right = windowW * .3;
     h = windowH * 1.5;
+    medium_screen = true;
 } else {
     margin_right = 50;
     h = windowH * 1;
@@ -19,7 +23,7 @@ if (windowW > 1000) {
 var w = windowW;
 
 var margin = {
-    top: 50,
+    top: 95,
     right: margin_right,
     bottom: 100,
     left: 50
@@ -41,7 +45,8 @@ var rowConverter = function(d) {
         name: d['Player Name'],
         game: parseInt(d['Career Games']),
         catches: parseInt(d['Career Catches']),
-        season: parseInt(d['Season'])
+        season: parseInt(d['Season']),
+        active: d['Active']
     };
 }
 
@@ -83,7 +88,12 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
         name_lowercase = values[0].name.toLowerCase()
         games = values[length].game;
         catches = values[length].catches;
-        seasons_played = "(" + values[0].season + " - " + values[length].season + ")";
+        active = values[0].active;
+        if (active == "Active") {
+          seasons_played = "(" + values[0].season + " - Present)";
+        } else {
+          seasons_played = "(" + values[0].season + " - " + values[length].season + ")";
+        }
 
         player_info["index"] = index;
         player_info["name"] = name;
@@ -97,12 +107,50 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
         names.push(name);
     }
 
+    console.log(nested);
+
+    if (large_screen) {
+      annotation_names = ["Jarvis Landry", "Jerry Rice", "Odell Beckham", "Marvin Harrison",
+                          "Larry Fitzgerald", "Antonio Brown"];
+      annotation_coordinates = {
+        jarvis_landry:[[45, 470],[52, 430],[57, 349]],
+        jerry_rice:[[291, 1670],[298, 1630],[303, 1549]],
+        odell_beckham:[[35, 434],[42, 394],[47, 313]],
+        marvin_harrison:[[178, 1223],[185, 1183],[190, 1102]],
+        larry_fitzgerald:[[199, 1306],[206, 1266],[211, 1185]],
+        antonio_brown:[[99, 823],[106, 783],[111, 702]]
+      };
+    } else if (medium_screen) {
+      annotation_names = ["Jarvis Landry", "Jerry Rice", "Odell Beckham", "Marvin Harrison",
+                          "Larry Fitzgerald", "Antonio Brown"];
+      annotation_coordinates = {
+        jarvis_landry:[[45, 510],[58, 450],[57, 349]],
+        jerry_rice:[[291, 1670],[298, 1630],[303, 1549]],
+        odell_beckham:[[35, 434],[42, 394],[47, 313]],
+        marvin_harrison:[[178, 1223],[185, 1183],[190, 1102]],
+        larry_fitzgerald:[[199, 1306],[206, 1266],[211, 1185]],
+        antonio_brown:[[99, 823],[106, 783],[111, 702]]
+      };
+    } else if (small_screen) {
+      annotation_names = ["Jarvis Landry", "Jerry Rice", "Odell Beckham", "Marvin Harrison",
+                          "Larry Fitzgerald", "Antonio Brown"];
+      annotation_coordinates = {
+        jarvis_landry:[[45, 510],[58, 450],[57, 349]],
+        jerry_rice:[[291, 1670],[298, 1630],[303, 1549]],
+        odell_beckham:[[35, 434],[42, 394],[47, 313]],
+        marvin_harrison:[[178, 1223],[185, 1183],[190, 1102]],
+        larry_fitzgerald:[[199, 1306],[206, 1266],[211, 1185]],
+        antonio_brown:[[99, 823],[106, 783],[111, 702]]
+      };
+    }
+
+
     //scale for x-axis - update with dataset
     var xScale = d3.scaleLinear()
         .domain([0,
             d3.max(dataset, function(d) {
                 return d.game;
-            })
+            }) + 10
         ])
         .range([0, w]);
 
@@ -151,7 +199,7 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
                 return game + "th";
             }
         })
-        .tickValues([0, 99, 199, 299])
+        .tickValues([0, 99, 199, 299]);
 
     //y-axis
     var yAxis = d3.axisLeft()
@@ -165,6 +213,18 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
             }
         });
 
+    var svg = d3.select("div.container")
+        .append("svg")
+        .attr("width", w + margin.right)
+        .attr("height", h + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+        .on("click", function() {
+          d3.select("text.playerLabel").remove();
+          d3.select("text.playerSubLabel").remove();
+          d3.select("rect.playerLabelBox").remove();
+          d3.select("path.lineThin").remove();
+        });
 
     //set up line generators
     var line = d3.line()
@@ -176,13 +236,6 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
         })
         .curve(d3.curveStepBefore);
 
-    var svg = d3.select("div.container")
-        .append("svg")
-        .attr("width", w + margin.right)
-        .attr("height", h + margin.top + margin.bottom)
-        .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
     var paths = svg.selectAll("path")
         .data(nested)
         .enter()
@@ -192,16 +245,46 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
             return line(d.values);
         })
         .style("stroke", function(d) {
-            var max = d.values[d.values.length - 1].catches;
-            var r = Math.round(colorScaleR(max)) + 14;
-            var g = Math.round(colorScaleG(max)) + 170;
-
-            rgb = "rgb(" + r + "," + g + ",255)";
-            return rgb;
+            var final_year = d.values[d.values.length - 1].season;
+            if (final_year == 2017) {
+              return "#6699CC";
+            } else {
+              return "DCDCDC";
+            }
         });
 
-    paths.transition()
-        .duration(200);
+    /*
+    const type = d3.annotationCalloutElbow;
+
+    const annotations = [{
+      note: {
+        title: "Jarvis Landry"
+      },
+      connector: {
+        end: "dot" // 'dot' also available
+      },
+    //can use x, y directly instead of data
+      data: { game: 70, catches: 275 },
+      dy: -25,
+      dx: -25
+    }].map(function(d){ d.color = "#000000"; return d})
+
+    const makeAnnotations = d3.annotation()
+      .type(type)
+      //accessors & accessorsInverse not needed
+      //if using x, y in annotations JSON
+      .accessors({
+        x: d => xScale(d.game),
+        y: d => yScale(d.catches)
+      })
+      .annotations(annotations);
+
+    d3.select("svg")
+      .append("g")
+      .attr("class", "annotation-group")
+      .call(makeAnnotations)
+      .style("font-family", 'Mada');
+    */
 
     paths.on("mouseover touchstart", function(d) {
         d3.select("text.playerLabel").remove();
@@ -224,6 +307,16 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
                 catches = key_info_pairs[key].catches;
                 seasons_played = key_info_pairs[key].seasons_played;
 
+                for (i in annotation_names) {
+                  if (!existing_annotation(annotation_names[i])) {
+                    create_annotation(annotation_names[i]);
+                  }
+                };
+
+                if (in_annotation_list(name)) {
+                  remove_annotation(name);
+                };
+
                 create_line_and_label(d, name, game, catches, seasons_played);
             });
     });
@@ -231,16 +324,15 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
 
     paths.on("mouseout touchend", function() {
         d3.select(this)
-            .style("stroke", function(d) {
-                var max = d.values[d.values.length - 1].catches;
-                var r = Math.round(colorScaleR(max)) + 14;
-                var g = Math.round(colorScaleG(max)) + 170;
+          .style("stroke-width", "3")
+          .each(function(d) {
+              key = d.key;
+              name = key_info_pairs[key].name;
 
-                rgb = "rgb(" + r + "," + g + ",255)";
-
-                return rgb;
-            })
-            .style("stroke-width", 3);
+              if (in_annotation_list(name)) {
+                create_annotation(name);
+              };
+          });
 
         d3.select("text.playerLabel").remove();
         d3.select("text.playerSubLabel").remove();
@@ -314,6 +406,10 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
                             catches = key_info_pairs[key].catches;
                             game = key_info_pairs[key].games;
                             seasons_played = key_info_pairs[key].seasons_played;
+
+                            if (in_annotation_list(name)) {
+                              remove_annotation(name);
+                            };
 
                             create_line_and_label(player_data, name, game, catches, seasons_played);
                         }
@@ -390,34 +486,79 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
             d3.select("text.playerSubLabel").attr("x", xScale(0)).attr("text-anchor", "start");
             d3.select("rect.playerLabelBox").attr("x", xScale(0));
         }
+
     };
 
-    const type = d3.annotationCalloutElbow;
+    var annotationLine = d3.line()
+        .x(function(d) {
+            return xScale(d[0]);
+        })
+        .y(function(d) {
+            return yScale(d[1]);
+        })
+        .curve(d3.curveCardinal);
 
-      const annotations = [{
-      note: {
-      title: "Jarvis Landry"
-    },
-    //can use x, y directly instead of data
-    data: { game: 70, catches: 275 },
-    dy: -50,
-    dx: -50
-  }].map(function(d){ d.color = "#000000"; return d})
+    var create_annotation = function(name) {
+      i = 0;
+      found_name = false;
 
-  const makeAnnotations = d3.annotation()
-    .type(type)
-    //accessors & accessorsInverse not needed
-    //if using x, y in annotations JSON
-    .accessors({
-      x: d => xScale(d.game),
-      y: d => yScale(d.catches)
-    })
-    .annotations(annotations);
+      while (i < annotation_names.length) {
+        if (annotation_names[i] == name) {
+          found_name = true;
+          i++;
+        } else {
+          i++;
+        }
+      }
 
-  d3.select("svg")
-    .append("g")
-    .attr("class", "annotation-group")
-    .call(makeAnnotations)
-    .style("font-family", 'Mada');
+      if (found_name) {
+        name_label = name.split(' ').join('_').toLowerCase();
+
+        this_player_coordinates = annotation_coordinates[name_label];
+
+        this_player_path = svg.append("path")
+                              .attr("class", name_label + " annotationPath")
+                              .attr("d", annotationLine(this_player_coordinates));
+
+        this_player_label = svg.append("text")
+                              .attr("class", name_label + " annotationText")
+                              .text(name)
+                              .attr("x", xScale(this_player_coordinates[0][0]))
+                              .attr("y", yScale(this_player_coordinates[0][1] + 10));
+      }
+    };
+
+    var in_annotation_list = function(name) {
+      i = 0;
+      while (i < annotation_names.length) {
+        if (annotation_names[i] == name) {
+          return true;
+        } else {
+          i++;
+        }
+      }
+      return false;
+    };
+
+    var existing_annotation = function(name) {
+      name_label = name.split(' ').join('_').toLowerCase();
+      path = d3.select("path." + name_label);
+      if (path.empty()) {
+        return false;
+      } else {
+        return true;
+      }
+    };
+
+    var remove_annotation = function(name) {
+      name_label = name.split(' ').join('_').toLowerCase();
+      d3.select("path." + name_label).remove();
+      d3.select("text." + name_label).remove();
+    };
+
+    for (i in annotation_names) {
+      create_annotation(annotation_names[i]);
+    }
+
 
 });
