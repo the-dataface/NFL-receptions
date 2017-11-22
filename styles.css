@@ -2,6 +2,11 @@ path.line {
 	fill:none;
 	stroke-width:3;
 } 
+@media screen and (max-width: 600px) {
+	path.line {
+		stroke-width:2;
+	} 
+}
 
 path.lineThin {
 	fill:none;
