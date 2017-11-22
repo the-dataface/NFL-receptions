@@ -135,7 +135,7 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
                           "Larry Fitzgerald", "Antonio Brown"];
       annotation_coordinates = {
         jarvis_landry:[[45, 470],[52, 430],[57, 349]],
-        jerry_rice:[[291, 1670],[298, 1630],[303, 1549]],
+        jerry_rice:[[291, 1580],[301, 1560],[303, 1549]],
         odell_beckham:[[35, 434],[42, 394],[47, 313]],
         marvin_harrison:[[178, 1223],[185, 1183],[190, 1102]],
         larry_fitzgerald:[[199, 1306],[206, 1266],[211, 1185]],
