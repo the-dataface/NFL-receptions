@@ -55,12 +55,12 @@ text.playerSubLabel {
 }
 
 div.nfl-receptions-chart {
-	width: 90%;
+	width: 92%;
 	margin: 0.75em auto;
 }
 
 @media screen and (max-width: 600px) {
-	div.chart-header {
+	div.nfl-receptions-chart {
 		width: 95%;
 	}
 }
