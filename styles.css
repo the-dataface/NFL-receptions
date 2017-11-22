@@ -54,9 +54,11 @@ text.playerSubLabel {
 	font-weight:300;
 } 
 
-div.chart-header {
+.chart-header {
 	font-family: 'Mada', sans-serif;
-	padding-left:30px;
+	width: 90%;
+    margin: 0.75em auto;
+    justify-content: center;
 } 
 
 p.main-header {
