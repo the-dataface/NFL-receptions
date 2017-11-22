@@ -107,4 +107,6 @@ path.line {
   height:100px;
   width:200px;
   top:0px;
+} text.label {
+  font-weight: 300;
 }
