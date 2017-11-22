@@ -108,7 +108,7 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
         var catches = values[length].catches;
         var active = values[0].active;
 		var seasons_played;
-		
+
         if (active == "Active") {
           seasons_played = "(" + values[0].season + " - Present)";
         } else {
@@ -129,7 +129,7 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
 
 	var annotation_names;
 	var annotation_coordinates;
-	
+
     if (large_screen) {
       annotation_names = ["Jarvis Landry", "Jerry Rice", "Odell Beckham", "Marvin Harrison",
                           "Larry Fitzgerald", "Antonio Brown"];
@@ -183,23 +183,6 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
             })
         ])
         .range([h, 0]);
-
-
-    var colorScaleR = d3.scaleLinear()
-        .domain([0,
-            d3.max(dataset, function(d) {
-                return d.catches;
-            })
-        ])
-        .range([198, 0]);
-
-    var colorScaleG = d3.scaleLinear()
-        .domain([0,
-            d3.max(dataset, function(d) {
-                return d.catches;
-            })
-        ])
-        .range([58, 0]);
 
     //x-axis
     var xAxis = d3.axisBottom()
@@ -467,7 +450,7 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
                 return small_screen;
             })
             .attr("x", xScale(game) - width - 5)
-            .attr("y", yScale(catches) - heightPlayerLabel);
+            .attr("y", yScale(catches) - height);
 
         if ((xScale(game) - width - 5) < 30) {
             d3.select("text.playerLabel").attr("x", xScale(0)).attr("text-anchor", "start");
