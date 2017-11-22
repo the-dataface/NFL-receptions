@@ -232,7 +232,7 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
         });
 
     //create svg
-    var svg = d3.select("div.container")
+    var svg = d3.select("div.step-chart-container")
         .append("svg")
         .attr("width", "100%")
         .attr("height", h + margin.top + margin.bottom)

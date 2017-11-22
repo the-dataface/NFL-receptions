@@ -54,11 +54,17 @@ text.playerSubLabel {
 	font-weight:300;
 } 
 
-.chart-header {
+div.chart-header {
 	font-family: 'Mada', sans-serif;
 	width: 90%;
 	margin: 0.75em auto;
-} 
+}
+
+@media screen and (max-width: 600px) {
+	div.chart-header {
+		width: 98%;
+	}
+}
 
 p.main-header {
 	font-size: 28px;
@@ -71,12 +77,12 @@ p.sub-header {
 	margin: auto;
 } 
 
-div.container {
+div.step-chart-container {
 	display: inline-block;
 	position: relative;
 	width:100%;
 	overflow: hidden;
-} 
+}
 
 .svg.content {
 	display: inline-block;
