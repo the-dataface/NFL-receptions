@@ -1,3 +1,6 @@
+//define asset paths
+var asset_path = setAssetPaths();
+
 //window width and height
 var windowW = window.innerWidth;
 var windowH = window.innerHeight;
@@ -66,7 +69,7 @@ var rowConverter = function(d) {
     };
 };
 
-d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", rowConverter, function(data) {
+d3.csv(asset_path + "top20_players_FINAL.csv", rowConverter, function(data) {
 
    d3.select("div.chart-header")
      .attr("width", w + "px");
@@ -580,3 +583,11 @@ d3.csv("https://the-dataface.github.io/NFL-receptions/top20_players_FINAL.csv", 
 
 
 });
+
+function setAssetPaths() {
+	var asset_path = '/data/';
+	if (window.location.hostname == 'the-dataface.github.io') {
+		asset_path = asset_path.substring(1);
+	}
+	return asset_path
+}
